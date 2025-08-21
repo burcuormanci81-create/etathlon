@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yeni Dünya Keşfi</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: url('https://i.ibb.co/2sZ8R4q/stars-background.jpg') no-repeat center center fixed;
+        background-size: cover;
+        color: white;
+        overflow-x: hidden;
+    }
+    .container {
+        padding: 20px;
+        text-align: center;
+    }
+    h1, h2 {
+        margin-bottom: 20px;
+    }
+    .story {
+        font-size: 1.2em;
+        margin-bottom: 40px;
+        line-height: 1.6;
+    }
+    .planets {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    .planet {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: transform 0.3s;
+    }
+    .planet:hover {
+        transform: scale(1.2);
+    }
+    .task-screen {
+        display: none;
+        margin-top: 30px;
+    }
+    .task-screen.active {
+        display: block;
+    }
+    .task-button {
+        padding: 10px 20px;
+        margin-top: 10px;
+        cursor: pointer;
+        border: none;
+        background-color: #00bfff;
+        color: white;
+        font-size: 1em;
+        border-radius: 5px;
+        transition: background 0.3s;
+    }
+    .task-button:hover {
+        background-color: #009acd;
+    }
+    .result {
+        margin-top: 20px;
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Yeni Dünya Keşfi</h1>
+    <div class="story">
+        <p>Dünya artık yaşanamaz hâle gelmiş.</p>
+        <p>İnsanlığın son umudu, başka gezegenlerde yeni yaşam kurmak.</p>
+        <p>Hangi gezegende görevleri tamamlayıp insanlık için yeni bir yaşam alanı oluşturacaksınız?</p>
+    </div>
+
+    <h2>Gezegen Seçimi</h2>
+    <div class="planets">
+        <img src="https://i.ibb.co/7V0v9yJ/mars.png" alt="Mars" class="planet" data-planet="mars">
+        <img src="https://i.ibb.co/3CWQjJ5/europa.png" alt="Europa" class="planet" data-planet="europa">
+        <img src="https://i.ibb.co/fqK0wL2/titan.png" alt="Titan" class="planet" data-planet="titan">
+    </div>
+
+    <div class="task-screen" id="mars-task">
+        <h2>Mars Görevi</h2>
+        <p>Enerji panellerini kurun.</p>
+        <button class="task-button" onclick="completeTask('mars', true)">Başarılı</button>
+        <button class="task-button" onclick="completeTask('mars', false)">Başarısız</button>
+        <div class="result" id="mars-result"></div>
+    </div>
+
+    <div class="task-screen" id="europa-task">
+        <h2>Europa Görevi</h2>
+        <p>Buzun altından su numunesi alın.</p>
+        <button class="task-button" onclick="completeTask('europa', true)">Başarılı</button>
+        <button class="task-button" onclick="completeTask('europa', false)">Başarısız</button>
+        <div class="result" id="europa-result"></div>
+    </div>
+
+    <div class="task-screen" id="titan-task">
+        <h2>Titan Görevi</h2>
+        <p>İletişim kulesini kurun.</p>
+        <button class="task-button" onclick="completeTask('titan', true)">Başarılı</button>
+        <button class="task-button" onclick="completeTask('titan', false)">Başarısız</button>
+        <div class="result" id="titan-result"></div>
+    </div>
+</div>
+
+<script>
+    const planets = document.querySelectorAll('.planet');
+    const taskScreens = document.querySelectorAll('.task-screen');
+
+    planets.forEach(planet => {
+        planet.addEventListener('click', () => {
+            taskScreens.forEach(screen => screen.classList.remove('active'));
+            document.getElementById(`${planet.dataset.planet}-task`).classList.add('active');
+        });
+    });
+
+    function completeTask(planet, success) {
+        const result = document.getElementById(`${planet}-result`);
+        if(success) {
+            result.textContent = "Görev tamamlandı! Kaynak kazanıldı.";
+            result.style.color = "lightgreen";
+        } else {
+            result.textContent = "Görev başarısız oldu. Tekrar deneyin.";
+            result.style.color = "red";
+        }
+    }
+</script>
+</body>
+</html>
+
